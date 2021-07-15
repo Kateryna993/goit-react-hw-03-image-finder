@@ -5,6 +5,8 @@ import fetchImages from './components/ApiService/ApiService.jsx';
 import ImageGallery from './components/ImageGallery/ImageGalleryList';
 import Button from './components/Button/Button';
 import Loader from './components/Loader/Loader.jsx';
+import Modal from './components/Modal/Modal.jsx';
+import style from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -62,26 +64,19 @@ export class App extends Component {
         }));
       })
       .catch(error => this.setState({ error: error }))
-      .finally(() => this.setState({ isLoading: false }));
-  };
-
-  onClickImage = e => {
-    this.setState({
-      onOpenModal: true,
-      largeImage: e.target.dataset.largeimage,
-    });
+      .finally(() => this.setState({ loading: false }));
   };
 
   toggleModal = () => {
-    this.setState(({ onOpenModal }) => ({
-      onOpenModal: !onOpenModal,
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
     }));
   };
 
-  closeModalESC = e => {
-    if (e.code === 'Escape') {
-      this.toggleModal();
-    }
+  openModal = modalImage => {
+    console.log('Open Modal', modalImage);
+    this.setState(() => ({ largeImage: modalImage }));
+    this.toggleModal();
   };
 
   closeModal = () => {
@@ -90,20 +85,24 @@ export class App extends Component {
   };
 
   render() {
-    const { images, loading, currentPage, onOpenModal, largeImage } =
-      this.state;
+    const { images, loading, showModal, largeImage } = this.state;
 
-    // const shouldRenderOnLoadMore = images.length > 0 && !loading;
-    // const hideLoadMoreButton = totalHits > currentPage - 1;
+    const shouldRenderOnLoadMore = images.length > 0 && !loading;
 
     return (
-      <div>
+      <div className={style.App}>
         <SearchBar onSubmit={this.onChangeQuery} />
-        <ImageGallery images={images} onClick={this.onClickImage} />
 
-        {images.length > 0 && <Button onClick={this.onFetchImages} />}
-
+        <ImageGallery images={images} onClickImage={this.openModal} />
         {loading && <Loader />}
+        {shouldRenderOnLoadMore && <Button onClick={this.onFetchImages} />}
+
+        {showModal && (
+          <Modal
+            onClose={this.toggleModal}
+            bigImage={largeImage.largeImageURL}
+          />
+        )}
 
         <Toaster position="top-right" />
       </div>

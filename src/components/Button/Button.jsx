@@ -1,13 +1,19 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-// import styles from "./Button.module.css";
+import style from './Button.module.css';
 
 class Button extends Component {
   render() {
     return (
-      <button type="button" onClick={this.props.onClick}>
-        Load more
-      </button>
+      <div className={style.BtnContainer}>
+        <button
+          className={style.Button}
+          type="button"
+          onClick={this.props.onClick}
+        >
+          Load more
+        </button>
+      </div>
     );
   }
 }

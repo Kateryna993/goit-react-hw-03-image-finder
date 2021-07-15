@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import toast from 'react-hot-toast';
+import style from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
@@ -25,15 +26,16 @@ class Searchbar extends Component {
   render() {
     return (
       <div>
-        <header className="Searchbar">
-          <form onSubmit={this.handleSubmit} className="SearchForm">
-            <button type="submit" className="SearchForm-button">
-              <span className="SearchForm-button-label">Search</span>
+        <header className={style.Searchbar}>
+          <form onSubmit={this.handleSubmit} className={style.SearchForm}>
+            <button type="submit" className={style.SearchFormButton}>
+              <span className={style.SearchFormBtnlabel}>Search</span>
             </button>
 
             <input
               onChange={this.handleChange}
-              className="SearchForm-input"
+              value={this.state.query}
+              className={style.SearchFormInput}
               type="text"
               autoComplete="off"
               autoFocus
@@ -47,28 +49,3 @@ class Searchbar extends Component {
 }
 
 export default Searchbar;
-
-// export const SearchBar = ({ onSearch }) => {
-//   const handleSearch = (e) => {
-//     e.preventDefault();
-//     onSearch(e.target.elements.imageName.value);
-//   };
-
-//   return (
-//     <header className="Searchbar">
-//       <form onSubmit={handleSearch} className="SearchForm">
-//         <button type="submit" className="SearchForm-button">
-//           <span className="SearchForm-button-label">Search</span>
-//         </button>
-
-//         <input
-//           className="SearchForm-input"
-//           type="text"
-//           //   autocomplete="off"
-//           //   autofocus
-//           placeholder="Search images and photos"
-//         />
-//       </form>
-//     </header>
-//   );
-// };

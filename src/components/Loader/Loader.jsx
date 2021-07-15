@@ -1,19 +1,21 @@
 import React from 'react';
-
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import style from './Loader.module.css';
 
 const Spinner = () => {
   //other logic
 
   return (
-    <Loader
-      type="Circles"
-      color="#7db5e9" //#3f51b5
-      height={60}
-      width={60}
-      timeout={2000}
-    />
+    <div className={style.LoaderContainer}>
+      <Loader
+        type="Circles"
+        color="#7db5e9"
+        height={90}
+        width={90}
+        timeout={5000}
+      />
+    </div>
   );
 };
 
