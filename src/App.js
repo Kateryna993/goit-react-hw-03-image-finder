@@ -28,7 +28,10 @@ export class App extends Component {
       // console.log('this.state.searchQuery: ', this.state.searchQuery);
     }
 
-    if (prevState.currentPage !== this.state.currentPage) {
+    if (
+      prevState.currentPage !== this.state.currentPage &&
+      this.state.currentPage > 2
+    ) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: 'smooth',
